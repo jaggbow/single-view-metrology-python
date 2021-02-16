@@ -18,7 +18,6 @@ img = cv2.imread('img/sony_clie-800x600.png')
 singlevm = SingleViewM(img, endpoints=lines, refpoints=refpoints)
 
 proj_matrix = singlevm.findProjectionMatrix()
-print(proj_matrix)
 H_xy = proj_matrix[:, [0, 1, 3]].copy()
 H_yz = -proj_matrix[:, [1, 2, 3]].copy()
 H_xz = -proj_matrix[:, [0, 2, 3]].copy()

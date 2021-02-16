@@ -62,3 +62,11 @@ class SingleViewM:
         proj_matrix[:, 1] = proj_matrix[:, 1] * scales['y']
         proj_matrix[:, 2] = proj_matrix[:, 2] * scales['z']
         return proj_matrix
+
+    def generateVRML(self, path: str):
+        return NotImplementedError
+
+    def generateTextures(self, proj_matrix: np.ndarray):
+        H_xy = proj_matrix[:, [0, 1, 3]].copy()
+        H_yz = -proj_matrix[:, [1, 2, 3]].copy()
+        H_xz = -proj_matrix[:, [0, 2, 3]].copy()
