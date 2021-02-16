@@ -1,12 +1,4 @@
 import numpy as np
-import cv2
-
-# Color of each axis
-COLORS = {
-    'x': (0, 0, 255),
-    'y': (0, 255, 0),
-    'z': (255, 0, 0)
-}
 
 
 class SingleViewM:
@@ -55,15 +47,16 @@ class SingleViewM:
             self.findVanishingPoints()
         # We first calculate the scaled version of the projection matrix
         proj_matrix = np.stack(
-            [self.vanishing_points['x'], self.vanishing_points['y'], self.vanishing_points['z'], self.refpoints['o']],
+            [self.vanishing_points['x'], self.vanishing_points['y'], self.vanishing_points['z'],
+             self.refpoints['o']],
             axis=1)
         # Now we'll find the scales associated to x, y and z
         scales = {}
         for key in self.vanishing_points:
-            ref_length = np.linalg.norm(self.refpoints[key] - self.refpoints['o'])
-            a_x, _, _, _ = np.linalg.lstsq(self.vanishing_points['x'].reshape(-1, 1) - self.refpoints[key],
-                                           (self.refpoints[key] - self.refpoints['o']))
-            scales[key] = a_x[0,0]/ref_length
+            ref_length = np.linalg.norm(self.refpoints[key] - self.refpoints['o'].reshape(-1, 1))
+            a, _, _, _ = np.linalg.lstsq(self.vanishing_points[key].reshape(-1, 1) - self.refpoints[key],
+                                         (self.refpoints[key] - self.refpoints['o'].reshape(-1, 1)))
+            scales[key] = a[0, 0] / ref_length
         # Use the scales to get the correct matrix
         proj_matrix[:, 0] = proj_matrix[:, 0] * scales['x']
         proj_matrix[:, 1] = proj_matrix[:, 1] * scales['y']
