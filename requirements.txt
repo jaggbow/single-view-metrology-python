@@ -1,5 +1,5 @@
 backcall==0.2.0
-bleach==3.2.1
+bleach==3.3.0
 blis==0.7.4
 brotlipy==0.7.0
 cachetools==4.2.0
