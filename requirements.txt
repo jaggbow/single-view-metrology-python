@@ -25,7 +25,7 @@ ipython==7.19.0
 ipython-genutils==0.2.0
 ipywidgets==7.6.0
 jedi==0.18.0
-Jinja2==2.11.2
+Jinja2==2.11.3
 jsonschema==3.2.0
 llvmlite==0.35.0
 lmdb==1.0.0
